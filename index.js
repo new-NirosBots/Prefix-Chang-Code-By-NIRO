@@ -2,7 +2,7 @@ require("events").EventEmitter.defaultMaxListeners = 200;
 const http = require("http");
 const express = require("express");
 const app = express();
-
+const rx = "1"
 
 app.get("/", (request, response) => {
   response.sendStatus(200);
@@ -18,7 +18,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();  
 const moment = require('moment');
 const zalgo = require('zalgolize');  
-const math = require('math-expression-evaluator');   
 const figlet = require('figlet');   
 const fs = require('fs');  //x$
 const ms = require('ms'); 
