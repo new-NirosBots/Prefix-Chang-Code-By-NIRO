@@ -1,20 +1,17 @@
 {
-  "name": "PREFIX_CHANFER_CODE BY_NITO",
+  "name": "simple-music",
   "version": "1.0.0",
-  "description": "NIRO_DEVELOPMENT",
+  "description": "Simple shitty music",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": ""
   },
-  "author": "Niro",
+  "author": "LuXy",
   "license": "MIT",
   "bugs": {
     "url": ""
   },
-  "dependencies": {
-{
-  "main": "index.js",
   "dependencies": {
     "array-sort": "^1.0.0",
     "canvas": "^2.6.1",
@@ -40,5 +37,8 @@
   },
   "scripts": {
     "start": "node index.js"
+  },
+  "skripts": {
+    "start": "node music.js"
   }
 }
