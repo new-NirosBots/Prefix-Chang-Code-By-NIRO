@@ -9,7 +9,7 @@ app.get("/", (request, response) => {
 });
 app.listen(process.env.PORT);
 setInterval(() => {
-  http.get(`http://superbot----01.glitch.me/`);
+  http.get(`http://${rx}.glitch.me/`);
 }, 280000);
 
 
@@ -48,7 +48,7 @@ var table = require("table").table;
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
-const prefix = '&'
+const prefix = '&'//برفكس البوت الأساسي
 ///////////////
 let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8"));
  
@@ -56,7 +56,7 @@ client.on("message", message => {
     if (!message.channel.guild) return;
     if (message.author.bot) return;
     if (!prefixes[message.guild.id]) prefixes[message.guild.id] = {
-        prefix: '&',
+        prefix: '&',//برفكس البوت الاساسي
     };
     var prefix = prefixes[message.guild.id].prefix;
     var setp = prefixes[message.guild.id];
@@ -81,18 +81,18 @@ client.on("message", message => {
     });
 });
 
-// كل كود اوله ضيف
+//طريقة الأستخدام
+//لازم تحط في اول كل كود
 /* if (!prefixes[message.guild.id]) prefixes[message.guild.id] = {
         prefix: '&',
     };
     var prefix = prefixes[message.guild.id].;*/
-// واخره
+// وتحط في اخر كل كود
 /* fs.writeFile("./Database/prefix.json", JSON.stringify(prefixes), (err) => {
         if (err) console.error(err);
     });*/
 
 //مثال
-
 client.on('message', message => { 
      if (!prefixes[message.guild.id]) prefixes[message.guild.id] = {
         prefix: '&',
@@ -118,4 +118,13 @@ client.on('message', message => {
         if (err) console.error(err);
     });
 
-client.login('')
+/*وتعمل ملف اسمه
+prefix.json
+{} وتكتب فيه
+Database و تعمل فولدر تسميه 
+prefix.json وتحط فيه ملف اسمه
+{} وتكتب فيه 
+*/
+
+
+client.login('')//توكن بوتك
