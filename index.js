@@ -1,37 +1,55 @@
+require("events").EventEmitter.defaultMaxListeners = 200;
+const http = require("http");
 const express = require("express");
 const app = express();
 
-app.listen(() => console.log("start by niro"));
 
-app.use('/ping', (req, res) => {
-  res.send(new Date());
+app.get("/", (request, response) => {
+  response.sendStatus(200);
 });
+app.listen(process.env.PORT);
+setInterval(() => {
+  http.get(`http://superbot----01.glitch.me/`);
+}, 280000);
 
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const cmd = require("node-cmd");
-const ms = require("ms");
-const fs = require('fs');
+
+
+const Discord = require('discord.js');  
+const client = new Discord.Client();  
+const moment = require('moment');
+const zalgo = require('zalgolize');  
+const math = require('math-expression-evaluator');   
+const figlet = require('figlet');   
+const fs = require('fs');  //x$
+const ms = require('ms'); 
+const { Client, RichEmbed } = require("discord.js");
+var { Util } = require("discord.js");
 const ytdl = require("ytdl-core");
 const canvas = require("canvas");
-const convert = require("hh-mm-ss")
+const convert = require("hh-mm-ss");
 const fetchVideoInfo = require("youtube-info");
-const simpleytapi = require('simple-youtube-api')
-const util = require("util")
+const botversion = require("./package.json").version;
+const simpleytapi = require("simple-youtube-api");
+const util = require("util");
 const gif = require("gif-search");
+const opus = require("node-opus");
 const jimp = require("jimp");
-const guild = require('guild');
-const hastebins = require('hastebin-gen');
-const getYoutubeID = require('get-youtube-id');
+const { get } = require("snekfetch");
+const guild = require("guild");
+const dateFormat = require("dateformat");
+const YouTube = require("simple-youtube-api");
+const youtube = new YouTube("AIzaSyAXaeBh837k38o_lwSADet8UTO7X21DGsY"); //تعديل اساسي سوي اي بي اي جديد
+const hastebins = require("hastebin-gen");
+const getYoutubeID = require("get-youtube-id");
+const yt_api_key = "AIzaSyAXaeBh837k38o_lwSADet8UTO7X21DGsY"; ///تعديل اساسي سوي اي بي اي جديد
 const pretty = require("pretty-ms");
-const moment = require('moment');
-const request = require('request');
-const dateFormat = require('dateformat');
-
-clinet.login("")//توكن بوتك
-
-const prefix = ""//حط البرفكس الأساسي للبوت
-
+const queue = new Map();
+var table = require("table").table;
+client.on("ready", () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+const prefix = '&'
+///////////////
 let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8"));
  
 client.on("message", message => {
@@ -48,65 +66,56 @@ client.on("message", message => {
         let args = message.content.split(" ").slice(1);
  
         if (!args.join(" ")) return message.reply(`**:x: Error: Say The Prefix Please.**`);
-          //const embed = new Discord.RichEmbed()
+          const embed = new Discord.RichEmbed()
  
-       //.setColor("BLACK")
- // .setTitle("Prefix Set!")
-  //.setDescription(`**Set to ${args[0]}**`);
-   // message.channel.send(embed);
-       message.channel.send(` 👌 `);
+       .setColor("BLACK")
+  .setTitle("Prefix Set!")
+  .setDescription(`**Set to ${args[0]}**`);
+    message.channel.send(embed);
         setp.prefix = args.join();
  
     }
  
-    fs.writeFile("./prefix.json", JSON.stringify(prefixes), (err) => {
+    fs.writeFile("./Database/prefix.json", JSON.stringify(prefixes), (err) => {
         if (err) console.error(err);
     });
 });
 
-/*
-لازم تحط اول كل كود
-if (!prefixes[niro.guild.id]) prefixes[niro.guild.id] = {
-        prefix: '!',
+// كل كود اوله ضيف
+/* if (!prefixes[message.guild.id]) prefixes[message.guild.id] = {
+        prefix: '&',
     };
-    var prefix = prefixes[niro.guild.id].;
-ولازم تحط بعد كل كود
-fs.writeFile("./prefixer.json", JSON.stringify(prefixes), (err) => {
+    var prefix = prefixes[message.guild.id].;*/
+// واخره
+/* fs.writeFile("./Database/prefix.json", JSON.stringify(prefixes), (err) => {
         if (err) console.error(err);
-    });
-*/
-/*مهم
-لازم تعمل ملف اسمه
-prefix.json
-و تكتب فيه 
-{}
-ولازم تعمل ملف اسمه
-prefixer.json
-وتكتب فيه 
-{}
-*/
+    });*/
 
 //مثال
-client.on('message', niro => {
 
-
-if (!prefixes[niro.guild.id]) prefixes[niro.guild.id] = {
-        prefix: '!',
+client.on('message', message => { 
+     if (!prefixes[message.guild.id]) prefixes[message.guild.id] = {
+        prefix: '&',
     };
-    var prefix = prefixes[niro.guild.id].;
-
-
-    if(niro.content.startsWith(prefix + 'ping')) {
-        var niro = new Discord.MessageEmbed()
-        .setColor('red')
-        .setTitle('Your Ping')
-        .setDescription(`> Your Ping | ${client.ws.ping}`)
-        .setFooter(`Requested By ${niro.author.tag}`, niro.author.avatarURL)
-        niro.channel.send(niro);
-    }
-});
-
-
-fs.writeFile("./prefixer.json", JSON.stringify(prefixes), (err) => {
+    var prefix = prefixes[message.guild.id].prefix;
+    
+                                if(!message.channel.guild) return;
+                        if (message.content.startsWith(prefix + 'ping')) {
+                            if(!message.channel.guild) return;
+                            var msg = `${Date.now() - message.createdTimestamp}`
+                            var api = `${Math.round(client.ping)}`
+                            if (message.author.bot) return;
+                        let embed = new Discord.RichEmbed()
+                        .setAuthor(message.author.username,message.author.avatarURL)
+                        .setColor('RANDOM')
+                        .addField('**Time Taken:**',msg + " ms 📶 ")
+                        .addField('**WebSocket:**',api + " ms 📶 ")
+                        .setTimestamp()
+        message.channel.send({embed:embed});
+                        }
+                    });
+                    fs.writeFile("./Database/prefix.json", JSON.stringify(prefixes), (err) => {
         if (err) console.error(err);
     });
+
+client.login('')
