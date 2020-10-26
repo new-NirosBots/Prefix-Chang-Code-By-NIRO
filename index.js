@@ -34,32 +34,32 @@ const prefix = ""//حط البرفكس الأساسي للبوت
 
 let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8"));
  
-client.on("message", niro => {
-    if (!niro.channel.guild) return;
-    if (niro.author.bot) return;
-    if (!prefixes[niro.guild.id]) prefixes[niro.guild.id] = {
-        prefix: '&',//حط البرفكس الأساسي للبوت
+client.on("message", message => {
+    if (!message.channel.guild) return;
+    if (message.author.bot) return;
+    if (!prefixes[message.guild.id]) prefixes[message.guild.id] = {
+        prefix: '&',
     };
-    var prefix = prefixes[niro.guild.id].prefix;
-    var setp = prefixes[niro.guild.id];
-    if (niro.content.startsWith(prefix + 'setp')) {
-        if (!niro.member.hasPermission(`MANAGE_GUILD`)) return niro.reply(`**:x: Error: You do not have the required permissions: Manage Server.**`);
+    var prefix = prefixes[message.guild.id].prefix;
+    var setp = prefixes[message.guild.id];
+    if (message.content.startsWith(prefix + 'setp')) {
+        if (!message.member.hasPermission(`MANAGE_GUILD`)) return message.reply(`**:x: Error: You do not have the required permissions: Manage Server.**`);
  
-        let args = niro.content.split(" ").slice(1);
+        let args = message.content.split(" ").slice(1);
  
-        if (!args.join(" ")) return niro.reply(`**:x: Error: Say The Prefix Please.**`);
+        if (!args.join(" ")) return message.reply(`**:x: Error: Say The Prefix Please.**`);
           //const embed = new Discord.RichEmbed()
  
        //.setColor("BLACK")
  // .setTitle("Prefix Set!")
   //.setDescription(`**Set to ${args[0]}**`);
-   // niro.channel.send(embed);
-       niro.channel.send(` 👌 `);
+   // message.channel.send(embed);
+       message.channel.send(` 👌 `);
         setp.prefix = args.join();
  
     }
  
-    fs.writeFile("./prefixer.json", JSON.stringify(prefixes), (err) => {
+    fs.writeFile("./prefix.json", JSON.stringify(prefixes), (err) => {
         if (err) console.error(err);
     });
 });
