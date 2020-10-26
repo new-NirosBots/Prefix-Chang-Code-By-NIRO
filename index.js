@@ -28,11 +28,13 @@ const moment = require('moment');
 const request = require('request');
 const dateFormat = require('dateformat');
 
+clinet.login("")//توكن بوتك
+
 const prefix = ""//حط البرفكس الأساسي للبوت
 
 let prefixes = JSON.parse(fs.readFileSync("./prefix.json", "utf8"));
  
-client.on("niro", niro => {
+client.on("message", niro => {
     if (!niro.channel.guild) return;
     if (niro.author.bot) return;
     if (!prefixes[niro.guild.id]) prefixes[niro.guild.id] = {
